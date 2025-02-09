@@ -16,6 +16,10 @@ class Zones implements API
 {
     use BodyAccessorTrait;
 
+    const TYPE_FULL = 'full';
+    const TYPE_PARTIAL = 'partial';
+    const TYPE_SECONDARY = 'secondary';
+
     private $adapter;
 
     public function __construct(Adapter $adapter)
@@ -31,11 +35,11 @@ class Zones implements API
      * @param string $accountId
      * @return \stdClass
      */
-    public function addZone(string $name, bool $jumpStart = false, string $accountId = ''): \stdClass
+    public function addZone(string $name, $type = self::TYPE_FULL, string $accountId = ''): \stdClass
     {
         $options = [
             'name' => $name,
-            'jump_start' => $jumpStart
+            'type' => $type
         ];
 
         if (!empty($accountId)) {
